@@ -4,6 +4,8 @@ service: notion-automation
 
 frameworkVersion: "2"
 
+useDotenv: true
+
 plugins:
   - serverless-plugin-typescript
 
@@ -15,6 +17,9 @@ provider:
 functions:
   cronHandler:
     handler: handler.run
+    environment:
+      NOTION_DB_ID: ${env:NOTION_DB_ID}
+      NOTION_API_KEY: ${env:NOTION_API_KEY}
     events:
       # 5 AM UTC everyday -> 9 AM Berlin timezone.
       - schedule: cron(0 5 ? * * *)
