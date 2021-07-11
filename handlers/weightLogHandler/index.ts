@@ -63,6 +63,7 @@ export const run = async (event: APIGatewayEvent, context: Context) => {
   const todayDate = new Date().toISOString();
 
   const weight = (event.body as any).weight;
+  const weightAsNum = typeof weight === "number" ? weight : parseFloat(weight);
 
   // get entry that for the current week
   const { results: currentWeekEntry } = await notion.databases.query({
@@ -94,7 +95,7 @@ export const run = async (event: APIGatewayEvent, context: Context) => {
     properties: {
       [`#${currentSlot}`]: {
         type: "number",
-        number: weight as number,
+        number: weightAsNum,
       },
     },
   });
