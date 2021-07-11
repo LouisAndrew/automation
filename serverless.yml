@@ -16,10 +16,19 @@ provider:
 
 functions:
   cronHandler:
-    handler: handler.run
+    handler: services.cronHandler
     environment:
-      NOTION_DB_ID: ${env:NOTION_DB_ID}
+      NOTION_DB_ID: ${env:NOTION_DB_TASKS_ID}
       NOTION_API_KEY: ${env:NOTION_API_KEY}
     events:
       # 5 AM UTC everyday -> 9 AM Berlin timezone.
       - schedule: cron(0 5 ? * * *)
+  weightLog:
+    handler: services.weightLogHandler
+    environment:
+      NOTION_DB_ID: ${env:NOTION_DB_WEIGHTS_ID}
+      NOTION_API_KEY: ${env:NOTION_API_KEY}
+    events:
+      - http:
+          path: log-weight
+          method: post

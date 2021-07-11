@@ -5,15 +5,18 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@notionhq/client": "^0.2.1"
+    "@notionhq/client": "^0.2.1",
+    "serverless-event-body-option": "^1.2.0"
   },
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.78",
     "serverless-plugin-typescript": "^1.1.9",
     "typescript": "^4.3.5"
   },
   "scripts": {
-    "run": "sls invoke local -f cronHandler",
-    "run-remote": "sls invoke -f cronHandler",
-    "publish": "sls deploy"
+    "run-cron": "sls invoke local -f cronHandler",
+    "run-cron-remote": "sls invoke -f cronHandler",
+    "publish": "sls deploy",
+    "run-log": "sls invoke local -f weightLog --path weight-log-event.json"
   }
 }

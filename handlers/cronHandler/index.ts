@@ -1,8 +1,9 @@
 import { Client } from "@notionhq/client";
 import { SelectOption } from "@notionhq/client/build/src/api-types";
 import { DbType } from "./DbType";
+
 // get recurring tasks that has the "Next Due" property of today.
-export const run = async (event, context) => {
+export const run = async () => {
   const notion = new Client({
     auth: process.env.NOTION_API_KEY,
   });
@@ -27,12 +28,6 @@ export const run = async (event, context) => {
             equals: todayDate,
           },
         },
-        // {
-        //   property: DbType.STATE.name,
-        //   [DbType.STATE.val]: {
-        //     equals: DbType.STATE.selectValue,
-        //   },
-        // },
       ],
     },
   });
