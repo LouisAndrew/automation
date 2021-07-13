@@ -50,7 +50,14 @@ const createWeeeklyEntry = (
 };
 
 const getCurrentSlot = (page: Page, todayDate: string): number => {
-  return new Date(todayDate).getDate() - getStartDate(page).getDate() + 1;
+  const dayTimestamp = 24 * 3600 * 1000; // timestamp for one day
+
+  return (
+    Math.floor(
+      (new Date(todayDate).getTime() - getStartDate(page).getTime()) /
+        dayTimestamp
+    ) + 1
+  );
 };
 
 // AWSLambda
@@ -62,8 +69,13 @@ export const run = async (event: APIGatewayEvent, context: Context) => {
   const dbId = process.env.NOTION_DB_ID || "";
   const todayDate = new Date().toISOString();
 
-  const weight = (event.body as any).weight;
-  const weightAsNum = typeof weight === "number" ? weight : parseFloat(weight);
+  const weight: string = JSON.parse(
+    event.body || '{ "weight": 0 }'
+  ).weight.toString();
+
+  const weightAsNum = parseFloat(
+    `${weight.substr(0, 2)}.${weight.substr(2, 2) || 0}`
+  );
 
   // get entry that for the current week
   const { results: currentWeekEntry } = await notion.databases.query({
