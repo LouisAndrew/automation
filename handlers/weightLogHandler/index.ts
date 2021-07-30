@@ -53,7 +53,7 @@ const getCurrentSlot = (page: Page, todayDate: string): number => {
   const dayTimestamp = 24 * 3600 * 1000; // timestamp for one day
 
   return (
-    Math.floor(
+    Math.round(
       (new Date(todayDate).getTime() - getStartDate(page).getTime()) /
         dayTimestamp
     ) + 1
