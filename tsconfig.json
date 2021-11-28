@@ -4,10 +4,14 @@
     "strictNullChecks": true,
     "sourceMap": true,
     "allowJs": true,
-    "target": "es5",
+    "target": "ES2015",
     "outDir": ".build",
     "moduleResolution": "node",
     "lib": ["es2015"],
-    "rootDir": "./"
+    "rootDir": "./",
+    "baseUrl": "./",
+    "paths": {
+      "handlers": ["./handers"],
+    }
   }
 }

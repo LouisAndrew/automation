@@ -4,7 +4,7 @@ import {
   PagesCreateResponse,
 } from "@notionhq/client/build/src/api-endpoints";
 import { Page } from "@notionhq/client/build/src/api-types";
-import { APIGatewayEvent, Callback, Context } from "aws-lambda";
+import { APIGatewayEvent, Context } from "aws-lambda";
 import { DbType, PageNumbers } from "./DbType";
 
 /**
@@ -60,6 +60,12 @@ const getCurrentSlot = (page: Page, todayDate: string): number => {
   );
 };
 
+const getTodaysDate = () => {
+  const date = new Date();
+  date.setHours(0, 0, 0, 0)
+  return date
+}
+
 // AWSLambda
 export const run = async (event: APIGatewayEvent, context: Context) => {
   const notion = new Client({
@@ -67,7 +73,7 @@ export const run = async (event: APIGatewayEvent, context: Context) => {
   });
 
   const dbId = process.env.NOTION_DB_ID || "";
-  const todayDate = new Date().toISOString();
+  const todayDate = getTodaysDate().toISOString()
 
   const weight: string = JSON.parse(
     event.body || '{ "weight": 0 }'

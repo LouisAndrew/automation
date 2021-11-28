@@ -34,6 +34,7 @@ export const run = async () => {
 
   await Promise.all(
     scheduled.results.map(async (page) => {
+    console.log({page: page})
       return notion.pages.update({
         page_id: page.id,
         properties: {

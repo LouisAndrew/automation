@@ -4,8 +4,7 @@ export const DbType = {
   STATE: {
     name: "State",
     val: "select",
-    selectValue: "🏁 SELECTED",
-    selectId: "{Qrh",
-    selectColor: "pink",
+    selectValue: "⚡️ TODO",
+    selectColor: "yellow",
   },
 } as const;
